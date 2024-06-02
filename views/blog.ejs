@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <%- include('./partials/head.ejs') %>
+   <title>Blog</title>
+  </head>
+  <body style="background-image: url('../images/istockphoto-1458843271-170667a.jpg');background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <div class="card mb-4 shadow">
+            <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="Blog Cover Image">
+            <div class="card-body">
+              <h1 class="card-title" style="text-align: center;"><%= blog.title %></h1>
+              <div class="d-flex align-items-center mb-2 justify-content-center text-center" >
+                <img src="<%= blog.createdBy.profileImageUrl %>" alt="Author Profile Image" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                <p class="mb-0"><%= blog.createdBy.fullName %></p>
+              </div>
+              <hr>
+              <p class="card-text" style="text-align: justify;"><%= blog.content %></p>
+            </div>
+
+            <% if (locals.user) { %>
+            <form action="/blog/<%= blog._id %>/comment" method="post" class="mb-4">
+              <div class="d-flex justify-content-center">
+                <div class="d-flex w-100" style="max-width: 600px;">
+                  <input type="text" class="form-control me-2" id="comment" name="comment" placeholder="Enter Your Comments...">
+                  <button type="submit" class="btn btn-outline-dark">Submit</button>
+                </div>
+              </div>
+            </form>
+            <% } %>
+
+
+            <div class="card">
+              <div class="card-header">
+                Comments(<%= comments.length%>)
+              </div>
+              <div class="card-body">
+                <% comments.forEach(comment => { %>
+                  <div class="d-flex align-items-center">
+                    <img src="<%=comment.userId.profileImageUrl %>" alt="Author Profile Image" class="rounded-circle me-3" style="width: 40px; height: 40px;">
+                    <div>
+                      <p class="mb-0" style="font-weight: 500;"><%= comment.userId.fullName %></p>
+                      <p><%= comment.comment %></p>
+                    </div>
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+
+          </div>
+          <div class="text-center mb-4">
+            <a href="/" class="btn btn-dark">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('./partials/script.ejs') %>
+  </body>
+</html>

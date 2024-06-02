@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <%- include('./partials/head.ejs') %>
+   <title>Blogify App</title>
+  </head>
+  <body style="background-image: url('../images/istockphoto-1458843271-170667a.jpg');background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="row row-cols-1 row-cols-md-4 g-3  mt-3 ms-auto me-auto" style="width: 98vw;">
+    <% allBlog.forEach(blog => { %>
+      <div class="card bg-gradient text-white ms-auto me-auto" style="width: 20rem;background-color: #574E4A;" >
+        <img src="<%= blog.coverImageURL %>" class="card-img-top mt-2" alt="Thumbnail">
+        <div class="card-body">
+          <h5 class="card-title"><%= blog.title.slice(0,25)+"..." %></h5>
+          <p class="card-text" style="text-align: justify;"><%= blog.content.slice(0,100)+"..." %></p>
+          <a href="/blog/<%= blog._id%>" class="btn btn-light">Read more</a>
+        </div>
+      </div>
+    <% }) %></div>
+
+    <%- include('./partials/script.ejs') %>
+  </body>
+</html>
